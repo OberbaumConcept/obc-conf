@@ -39,7 +39,13 @@ public class Utils {
 	}
 
 
-	public static void addAll(@Nullable Map<String, String> source, @Nonnull Map<String, String> target) {
+	/**
+	 * Copies all entries from <code>source</code> to <code>target</code>, except <code>null</code> keys
+	 *
+	 * @param source entries to copy
+	 * @param target target to copy entries to
+	 */
+	public static <K, V> void addAll(@Nullable Map<K, V> source, @Nonnull Map<K, V> target) {
 		if (source != null) {
 			source.entrySet().stream().filter(e -> e.getKey() != null)
 					.forEach(e -> target.put(e.getKey(), e.getValue()));
