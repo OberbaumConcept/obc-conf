@@ -16,6 +16,8 @@
 
 package net.obecon.properties;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
  */
@@ -27,13 +29,14 @@ public class PropertyParseException extends RuntimeException {
 
 
 	public static PropertyParseException parseError(String key, String value, Class<?> targetClass) {
-		return parseError(key, value, targetClass, null);
+		return new PropertyParseException(
+				String.format("failed to parse property '%s'='%s' to %s)", key, value, targetClass.getName()), null);
 	}
 
 
-	public static PropertyParseException parseError(String key, String value, Class<?> targetClass, Throwable cause) {
+	public static PropertyParseException parseError(String key, String value, Class<?> targetClass, @Nonnull  Throwable cause) {
 		return new PropertyParseException(
-				String.format("failed to parse property '%s'='%s' to %s)", key, value, targetClass.getName()), cause);
+				String.format("failed to parse property '%s'='%s' to %s: %s", key, value, targetClass.getName(), cause.getMessage()), cause);
 	}
 
 

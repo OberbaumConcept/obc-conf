@@ -38,11 +38,6 @@ import net.obecon.properties.converter.ShortConverter;
  */
 public interface PropertyGetters {
 
-	default void assertHasKey(@Nonnull String key) throws MissingPropertyException {
-		if (!hasKey(key)) {
-			throw new MissingPropertyException(key);
-		}
-	}
 
 	boolean hasKey(@Nonnull String key);
 
@@ -65,7 +60,7 @@ public interface PropertyGetters {
 		try {
 			return converter.fromString(value);
 		} catch (ParseException e) {
-			throw PropertyParseException.parseError(key, value, converter.getTargetClass(), e.getCause());
+			throw PropertyParseException.parseError(key, value, converter.getTargetClass(), e);
 		}
 	}
 

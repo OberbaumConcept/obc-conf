@@ -44,7 +44,9 @@ public abstract class AbstractProperties implements PropertyGetters {
 
 	@Override
 	public String getAsString(@Nonnull String key) throws MissingPropertyException {
-		assertHasKey(key);
+		if (!hasKey(key)) {
+			throw new MissingPropertyException(key);
+		}
 		return StrSubstitutor.replace(map.get(key), map);
 	}
 
