@@ -16,31 +16,35 @@
 
 package net.obecon.properties.converter;
 
-import java.time.OffsetDateTime;
+import java.time.OffsetTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+import javax.annotation.Nonnull;
 
 /**
  * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
  */
-public class OffsetDateConverter extends AbstractConverter<OffsetDateTime> {
+public class IsoOffsetTimeConverter extends AbstractConverter<OffsetTime> {
 
 
-	public static final OffsetDateConverter INSTANCE = new OffsetDateConverter();
+	public static final IsoOffsetTimeConverter INSTANCE = new IsoOffsetTimeConverter(DateTimeFormatter.ISO_OFFSET_TIME);
+	private final DateTimeFormatter formatter;
 
 
-	private OffsetDateConverter() {
-		super(OffsetDateTime.class);
+	protected IsoOffsetTimeConverter(@Nonnull DateTimeFormatter formatter) {
+		super(OffsetTime.class);
+		this.formatter = Objects.requireNonNull(formatter);
 	}
 
 
 	@Override
-	protected OffsetDateTime doFromString(String value) throws Exception {
-		return OffsetDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE);
+	protected OffsetTime doFromString(String value) throws Exception {
+		return OffsetTime.parse(value, formatter);
 	}
 
 
 	@Override
-	protected String doToString(OffsetDateTime object) {
-		return DateTimeFormatter.ISO_OFFSET_DATE.format(object);
+	protected String doToString(OffsetTime object) {
+		return formatter.format(object);
 	}
 }

@@ -16,17 +16,23 @@
 
 package net.obecon.properties.converter;
 
-/**
- * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
- */
-public class ParseException extends RuntimeException {
+import java.io.File;
 
-	public ParseException(String message) {
-		super(message);
+/**
+ * @author Janne K. Olesen &lt;janne.olesen@unbelievable-machine.com&gt;
+ */
+public class FileConverter extends AbstractConverter<File> {
+
+	public static final FileConverter INSTANCE = new FileConverter();
+
+
+	private FileConverter() {
+		super(File.class);
 	}
 
 
-	public ParseException(String message, Throwable cause) {
-		super(message, cause);
+	@Override
+	protected File doFromString(String value) throws Exception {
+		return new File(value);
 	}
 }

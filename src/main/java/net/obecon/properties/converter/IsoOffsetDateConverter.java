@@ -16,17 +16,19 @@
 
 package net.obecon.properties.converter;
 
+import java.time.format.DateTimeFormatter;
+import javax.annotation.Nonnull;
+
 /**
  * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
  */
-public class ParseException extends RuntimeException {
-
-	public ParseException(String message) {
-		super(message);
-	}
+public class IsoOffsetDateConverter extends IsoOffsetDateTimeConverter {
 
 
-	public ParseException(String message, Throwable cause) {
-		super(message, cause);
+	public static final IsoOffsetDateConverter INSTANCE = new IsoOffsetDateConverter(DateTimeFormatter.ISO_OFFSET_DATE);
+
+
+	protected IsoOffsetDateConverter(@Nonnull DateTimeFormatter formatter) {
+		super(formatter);
 	}
 }

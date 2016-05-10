@@ -44,6 +44,6 @@ public class BooleanConverter extends AbstractConverter<Boolean> {
 				|| value.equalsIgnoreCase("0")) {
 			return false;
 		}
-		throw new ParseException(value);
+		throw new ParseException(String.format("invalid value: %s. Expected true|false|on|off|yes|no|1|0", value));
 	}
 }

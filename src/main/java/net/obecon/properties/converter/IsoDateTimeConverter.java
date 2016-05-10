@@ -16,31 +16,19 @@
 
 package net.obecon.properties.converter;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.annotation.Nonnull;
 
 /**
  * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
  */
-public class LocalDateConverter extends AbstractConverter<LocalDate> {
+public class IsoDateTimeConverter extends IsoOffsetDateTimeConverter {
 
 
-	public static final LocalDateConverter INSTANCE = new LocalDateConverter();
+	public static final IsoDateTimeConverter INSTANCE = new IsoDateTimeConverter(DateTimeFormatter.ISO_DATE_TIME);
 
 
-	private LocalDateConverter() {
-		super(LocalDate.class);
-	}
-
-
-	@Override
-	protected LocalDate doFromString(String value) throws Exception {
-		return LocalDate.parse(value, DateTimeFormatter.ISO_LOCAL_DATE);
-	}
-
-
-	@Override
-	protected String doToString(LocalDate object) {
-		return DateTimeFormatter.ISO_LOCAL_DATE.format(object);
+	protected IsoDateTimeConverter(@Nonnull DateTimeFormatter formatter) {
+		super(formatter);
 	}
 }
