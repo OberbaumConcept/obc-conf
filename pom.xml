@@ -61,6 +61,7 @@
 		<commons-lang3.version>[2.2,)</commons-lang3.version>
 		<junit.version>4.12</junit.version>
 		<JUnitParams.version>1.0.5</JUnitParams.version>
+		<mockito.version>2.0.52-beta</mockito.version>
 	</properties>
 
 	<profiles>
@@ -158,6 +159,12 @@
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
 		</dependency>
 
 		<dependency>
