@@ -31,6 +31,9 @@ public class CharConverter extends AbstractConverter<Character> {
 
 	@Override
 	protected Character doFromString(String value) throws Exception {
+		if (value.length() != 1) {
+			throw new ParseException(String.format("expected one char, found: '%s'", value));
+		}
 		return value.charAt(0);
 	}
 }
