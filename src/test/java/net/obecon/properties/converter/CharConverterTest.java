@@ -14,26 +14,28 @@
  * limitations under the License.
  */
 
-package net.obecon.properties;
-
-import java.io.Serializable;
-import java.util.Map;
-import javax.annotation.Nonnull;
-import net.obecon.properties.internal.PropertyGetters;
+package net.obecon.properties.converter;
 
 /**
- * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
+ * Created by Janne K. Olesen on 10.05.2016.
  */
-public interface ImmutableProperties extends PropertyGetters, Serializable {
+public class CharConverterTest extends ConverterTestBase<Character> {
 
-
-	@Nonnull
-	static ImmutableProperties of(@Nonnull Map<String, String> map) {
-		return Properties.of(map).immutable();
+	public CharConverterTest() {
+		super(CharConverter.INSTANCE);
 	}
 
-	@Nonnull
-	static ImmutableProperties of(@Nonnull java.util.Properties properties) {
-		return Properties.of(properties).immutable();
+
+	@Override
+	protected Object[] toStringParameters() {
+
+		return new Object[]{
+				createTestCase("c", 'c'),
+				createTestCaseFromStringException(null),
+				createTestCaseFromStringException(""),
+				createTestCaseFromStringException("notachar"),
+		};
 	}
+
+
 }
