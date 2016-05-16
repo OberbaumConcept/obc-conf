@@ -19,7 +19,7 @@ package net.obecon.properties.converter;
 import java.io.File;
 
 /**
- * @author Janne K. Olesen &lt;janne.olesen@unbelievable-machine.com&gt;
+ * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
  */
 public class FileConverter extends AbstractConverter<File> {
 

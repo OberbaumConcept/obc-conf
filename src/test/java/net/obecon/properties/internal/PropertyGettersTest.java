@@ -38,7 +38,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
- * Created by Janne K. Olesen on 04.05.2016.
+ * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
  */
 @RunWith(JUnitParamsRunner.class)
 public class PropertyGettersTest {

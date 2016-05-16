@@ -23,7 +23,7 @@ import net.obecon.properties.ImmutableProperties;
 import net.obecon.properties.Properties;
 
 /**
- * @author Janne K. Olesen &lt;janne.olesen@unbelievable-machine.com&gt;
+ * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
  */
 public class PropertiesImpl extends AbstractProperties implements Properties {
 

@@ -58,6 +58,7 @@ public abstract class AbstractConverter<T> implements Converter<T> {
 
 	protected abstract T doFromString(String value) throws Exception;
 
+
 	protected String doToString(T object) {
 		return object.toString();
 	}

@@ -34,9 +34,10 @@ public class PropertyParseException extends RuntimeException {
 	}
 
 
-	public static PropertyParseException parseError(String key, String value, Class<?> targetClass, @Nonnull  Throwable cause) {
+	public static PropertyParseException parseError(String key, String value, Class<?> targetClass, @Nonnull Throwable cause) {
 		return new PropertyParseException(
-				String.format("failed to parse property '%s'='%s' to %s: %s", key, value, targetClass.getName(), cause.getMessage()), cause);
+				String.format("failed to parse property '%s'='%s' to %s: %s", key, value, targetClass.getName(), cause
+						.getMessage()), cause);
 	}
 
 

@@ -19,7 +19,7 @@ package net.obecon.properties.converter;
 import java.math.BigInteger;
 
 /**
- * Created by Janne K. Olesen on 10.05.2016.
+ * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
  */
 public class LongConverterTest extends ConverterTestBase<Long> {
 

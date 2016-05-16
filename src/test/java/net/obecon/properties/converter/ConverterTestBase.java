@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
 import static org.junit.Assume.assumeFalse;
 
 /**
- * @author Janne K. Olesen &lt;janne.olesen@unbelievable-machine.com&gt;
+ * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
  */
 @RunWith(JUnitParamsRunner.class)
 public abstract class ConverterTestBase<T> {

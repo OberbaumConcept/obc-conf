@@ -20,7 +20,7 @@ import java.util.Map;
 import net.obecon.properties.ImmutableProperties;
 
 /**
- * @author Janne K. Olesen &lt;janne.olesen@unbelievable-machine.com&gt;
+ * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
  */
 public class ImmutablePropertiesImpl extends AbstractProperties implements ImmutableProperties {
 

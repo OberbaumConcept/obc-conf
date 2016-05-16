@@ -19,7 +19,7 @@ package net.obecon.properties.converter;
 import java.time.LocalDate;
 
 /**
- * Created by Janne K. Olesen on 15.05.2016.
+ * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
  */
 public class IsoLocalDateConverterTest extends ConverterTestBase<LocalDate> {
 

@@ -22,7 +22,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
 /**
- * Created by Janne K. Olesen on 15.05.2016.
+ * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
  */
 public class IsoOffsetDateConverterTest extends ConverterTestBase<OffsetDateTime> {
 

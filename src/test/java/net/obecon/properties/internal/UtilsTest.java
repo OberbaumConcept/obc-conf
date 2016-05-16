@@ -22,7 +22,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by Janne K. Olesen on 29.04.2016.
+ * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
  */
 public class UtilsTest {
 
