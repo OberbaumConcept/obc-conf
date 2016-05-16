@@ -16,19 +16,39 @@
 
 package net.obecon.properties.converter;
 
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import javax.annotation.Nonnull;
 
 /**
  * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
  */
-public class IsoDateConverter extends IsoOffsetDateTimeConverter {
+public class IsoDateConverter extends AbstractConverter<OffsetDateTime> {
+
+	private final DateTimeFormatter formatter;
 
 
-	public static final IsoDateConverter INSTANCE = new IsoDateConverter(DateTimeFormatter.ISO_DATE);
+	public IsoDateConverter(@Nonnull ZoneOffset defaultZoneOffset) {
+		super(OffsetDateTime.class);
+		this.formatter = new DateTimeFormatterBuilder()
+				.append(DateTimeFormatter.ISO_DATE)
+				.parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+				.parseDefaulting(ChronoField.OFFSET_SECONDS, defaultZoneOffset.getTotalSeconds())
+				.toFormatter();
+	}
 
 
-	protected IsoDateConverter(@Nonnull DateTimeFormatter formatter) {
-		super(formatter);
+	@Override
+	protected OffsetDateTime doFromString(String value) throws Exception {
+		return OffsetDateTime.parse(value, formatter);
+	}
+
+
+	@Override
+	protected String doToString(OffsetDateTime object) {
+		return formatter.format(object);
 	}
 }

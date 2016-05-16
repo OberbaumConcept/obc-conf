@@ -28,10 +28,11 @@ public class IsoOffsetDateTimeConverter extends AbstractConverter<OffsetDateTime
 
 
 	public static final IsoOffsetDateTimeConverter INSTANCE = new IsoOffsetDateTimeConverter(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+
 	private final DateTimeFormatter formatter;
 
 
-	protected IsoOffsetDateTimeConverter(@Nonnull DateTimeFormatter formatter) {
+	private IsoOffsetDateTimeConverter(@Nonnull DateTimeFormatter formatter) {
 		super(OffsetDateTime.class);
 		this.formatter = Objects.requireNonNull(formatter);
 	}
