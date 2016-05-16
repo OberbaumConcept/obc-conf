@@ -16,41 +16,32 @@
 
 package net.obecon.properties.converter;
 
-/**
- * Created by Janne K. Olesen on 10.05.2016.
- */
-public class BooleanConverterTest extends ConverterTestBase<Boolean> {
+import java.time.LocalDate;
 
-	public BooleanConverterTest() {
-		super(BooleanConverter.INSTANCE);
+/**
+ * Created by Janne K. Olesen on 15.05.2016.
+ */
+public class IsoLocalDateConverterTest extends ConverterTestBase<LocalDate> {
+
+	public IsoLocalDateConverterTest() {
+		super(IsoLocalDateConverter.INSTANCE);
 	}
 
 
 	@Override
 	protected Object[] fromStringParameters() {
 		return new Object[]{
-				createTestCase("trUe", true),
-				createTestCase("YeS", true),
-				createTestCase("oN", true),
-				createTestCase("1", true),
-				createTestCase("falSe", false),
-				createTestCase("nO", false),
-				createTestCase("oFf", false),
-				createTestCase("0", false),
-				createTestCaseFromStringException("noBoolean"),
-				createTestCaseFromStringException(null)
+				createTestCase("2016-05-15", LocalDate.of(2016, 5, 15)),
+				createTestCaseFromStringException("2016-05-15+05:00"),
+				createTestCaseFromStringException("2016-05-32")
 		};
 	}
 
 
 	@Override
 	protected Object[] toStringParameters() {
-
 		return new Object[]{
-				createTestCase("true", true),
-				createTestCase("false", false),
-				createTestCase(null, null)
-
+				createTestCase("2016-05-15", LocalDate.of(2016, 5, 15))
 		};
 	}
 }

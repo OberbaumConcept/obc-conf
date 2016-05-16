@@ -19,38 +19,33 @@ package net.obecon.properties.converter;
 /**
  * Created by Janne K. Olesen on 10.05.2016.
  */
-public class BooleanConverterTest extends ConverterTestBase<Boolean> {
+public class ShortConverterTest extends ConverterTestBase<Short> {
 
-	public BooleanConverterTest() {
-		super(BooleanConverter.INSTANCE);
+	public ShortConverterTest() {
+		super(ShortConverter.INSTANCE);
 	}
 
 
 	@Override
 	protected Object[] fromStringParameters() {
 		return new Object[]{
-				createTestCase("trUe", true),
-				createTestCase("YeS", true),
-				createTestCase("oN", true),
-				createTestCase("1", true),
-				createTestCase("falSe", false),
-				createTestCase("nO", false),
-				createTestCase("oFf", false),
-				createTestCase("0", false),
-				createTestCaseFromStringException("noBoolean"),
-				createTestCaseFromStringException(null)
+				createTestCase(Short.toString(Short.MIN_VALUE), Short.MIN_VALUE),
+				createTestCase(Short.toString(Short.MAX_VALUE), Short.MAX_VALUE),
+				createTestCaseFromStringException(null),
+				createTestCaseFromStringException(""),
+				createTestCaseFromStringException(Integer.toString(Short.MIN_VALUE - 1)),
+				createTestCaseFromStringException(Integer.toString(Short.MAX_VALUE + 1)),
+				createTestCaseFromStringException("1.0")
 		};
 	}
 
 
 	@Override
 	protected Object[] toStringParameters() {
-
 		return new Object[]{
-				createTestCase("true", true),
-				createTestCase("false", false),
-				createTestCase(null, null)
-
+				createTestCase(Short.toString(Short.MIN_VALUE), Short.MIN_VALUE),
+				createTestCase(Short.toString(Short.MAX_VALUE), Short.MAX_VALUE),
+				createTestCase("0", (short) -0)
 		};
 	}
 }

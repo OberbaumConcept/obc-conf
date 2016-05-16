@@ -24,7 +24,6 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import static org.junit.Assert.*;
 import static org.junit.Assume.assumeFalse;
-import static org.junit.Assume.assumeThat;
 
 /**
  * @author Janne K. Olesen &lt;janne.olesen@unbelievable-machine.com&gt;
@@ -91,6 +90,17 @@ public abstract class ConverterTestBase<T> {
 			this.string = string;
 			this.value = value;
 			this.fromStringException = fromStringException;
+		}
+
+
+		@Override
+		public String toString() {
+			final StringBuilder sb = new StringBuilder("TestCase{");
+			sb.append("string='").append(string).append('\'');
+			sb.append(", value=").append(value);
+			sb.append(", fromStringException=").append(fromStringException);
+			sb.append('}');
+			return sb.toString();
 		}
 	}
 }

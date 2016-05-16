@@ -19,38 +19,32 @@ package net.obecon.properties.converter;
 /**
  * Created by Janne K. Olesen on 10.05.2016.
  */
-public class BooleanConverterTest extends ConverterTestBase<Boolean> {
+public class FloatConverterTest extends ConverterTestBase<Float> {
 
-	public BooleanConverterTest() {
-		super(BooleanConverter.INSTANCE);
+	public FloatConverterTest() {
+		super(FloatConverter.INSTANCE);
 	}
 
 
 	@Override
 	protected Object[] fromStringParameters() {
 		return new Object[]{
-				createTestCase("trUe", true),
-				createTestCase("YeS", true),
-				createTestCase("oN", true),
-				createTestCase("1", true),
-				createTestCase("falSe", false),
-				createTestCase("nO", false),
-				createTestCase("oFf", false),
-				createTestCase("0", false),
-				createTestCaseFromStringException("noBoolean"),
-				createTestCaseFromStringException(null)
+				createTestCase(Float.toString(Float.MIN_VALUE), Float.MIN_VALUE),
+				createTestCase(Float.toString(Float.MAX_VALUE), Float.MAX_VALUE),
+				createTestCaseFromStringException(null),
+				createTestCaseFromStringException("")
 		};
 	}
 
 
 	@Override
 	protected Object[] toStringParameters() {
-
 		return new Object[]{
-				createTestCase("true", true),
-				createTestCase("false", false),
-				createTestCase(null, null)
-
+				createTestCase(Float.toString(Float.MIN_VALUE), Float.MIN_VALUE),
+				createTestCase(Float.toString(Float.MAX_VALUE), Float.MAX_VALUE),
+				createTestCase("-0.0", -0.0f),
+				createTestCase("0.0", 0.0f),
+				createTestCase("0.0", 0f)
 		};
 	}
 }

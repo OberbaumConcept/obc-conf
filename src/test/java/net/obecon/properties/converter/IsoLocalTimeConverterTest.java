@@ -16,41 +16,36 @@
 
 package net.obecon.properties.converter;
 
-/**
- * Created by Janne K. Olesen on 10.05.2016.
- */
-public class BooleanConverterTest extends ConverterTestBase<Boolean> {
+import java.time.LocalTime;
 
-	public BooleanConverterTest() {
-		super(BooleanConverter.INSTANCE);
+/**
+ * Created by Janne K. Olesen on 15.05.2016.
+ */
+public class IsoLocalTimeConverterTest extends ConverterTestBase<LocalTime> {
+
+	public IsoLocalTimeConverterTest() {
+		super(IsoLocalTimeConverter.INSTANCE);
 	}
 
 
 	@Override
 	protected Object[] fromStringParameters() {
 		return new Object[]{
-				createTestCase("trUe", true),
-				createTestCase("YeS", true),
-				createTestCase("oN", true),
-				createTestCase("1", true),
-				createTestCase("falSe", false),
-				createTestCase("nO", false),
-				createTestCase("oFf", false),
-				createTestCase("0", false),
-				createTestCaseFromStringException("noBoolean"),
-				createTestCaseFromStringException(null)
+				createTestCase("14:15", LocalTime.of(14, 15)),
+				createTestCase("14:15:16", LocalTime.of(14, 15, 16)),
+				createTestCase("14:15:16.17", LocalTime.of(14, 15, 16, 170000000)),
+				createTestCaseFromStringException("14:15+05:00"),
+				createTestCaseFromStringException("25:00")
 		};
 	}
 
 
 	@Override
 	protected Object[] toStringParameters() {
-
 		return new Object[]{
-				createTestCase("true", true),
-				createTestCase("false", false),
-				createTestCase(null, null)
-
+				createTestCase("14:15:00", LocalTime.of(14, 15)),
+				createTestCase("14:15:16", LocalTime.of(14, 15, 16)),
+				createTestCase("14:15:16.17", LocalTime.of(14, 15, 16, 170000000))
 		};
 	}
 }

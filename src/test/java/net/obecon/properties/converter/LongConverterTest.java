@@ -16,41 +16,42 @@
 
 package net.obecon.properties.converter;
 
+import java.math.BigInteger;
+
 /**
  * Created by Janne K. Olesen on 10.05.2016.
  */
-public class BooleanConverterTest extends ConverterTestBase<Boolean> {
+public class LongConverterTest extends ConverterTestBase<Long> {
 
-	public BooleanConverterTest() {
-		super(BooleanConverter.INSTANCE);
+	public LongConverterTest() {
+		super(LongConverter.INSTANCE);
 	}
 
 
 	@Override
 	protected Object[] fromStringParameters() {
 		return new Object[]{
-				createTestCase("trUe", true),
-				createTestCase("YeS", true),
-				createTestCase("oN", true),
-				createTestCase("1", true),
-				createTestCase("falSe", false),
-				createTestCase("nO", false),
-				createTestCase("oFf", false),
-				createTestCase("0", false),
-				createTestCaseFromStringException("noBoolean"),
-				createTestCaseFromStringException(null)
+				createTestCase(Long.toString(Long.MIN_VALUE), Long.MIN_VALUE),
+				createTestCase(Long.toString(Long.MAX_VALUE), Long.MAX_VALUE),
+				createTestCaseFromStringException(null),
+				createTestCaseFromStringException(""),
+				createTestCaseFromStringException(BigInteger.valueOf(Long.MIN_VALUE)
+						.subtract(BigInteger.ONE)
+						.toString()),
+				createTestCaseFromStringException(BigInteger.valueOf(Long.MAX_VALUE)
+						.add(BigInteger.ONE)
+						.toString()),
+				createTestCaseFromStringException("1.0")
 		};
 	}
 
 
 	@Override
 	protected Object[] toStringParameters() {
-
 		return new Object[]{
-				createTestCase("true", true),
-				createTestCase("false", false),
-				createTestCase(null, null)
-
+				createTestCase(Long.toString(Long.MIN_VALUE), Long.MIN_VALUE),
+				createTestCase(Long.toString(Long.MAX_VALUE), Long.MAX_VALUE),
+				createTestCase("0", -0L)
 		};
 	}
 }

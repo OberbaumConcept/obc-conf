@@ -27,15 +27,22 @@ public class CharConverterTest extends ConverterTestBase<Character> {
 
 
 	@Override
-	protected Object[] toStringParameters() {
-
+	protected Object[] fromStringParameters() {
 		return new Object[]{
-				createTestCase("c", 'c'),
+				createTestCase(Character.toString(Character.MIN_VALUE), Character.MIN_VALUE),
+				createTestCase(Character.toString(Character.MAX_VALUE), Character.MAX_VALUE),
 				createTestCaseFromStringException(null),
 				createTestCaseFromStringException(""),
-				createTestCaseFromStringException("notachar"),
+				createTestCaseFromStringException("notachar")
 		};
 	}
 
 
+	@Override
+	protected Object[] toStringParameters() {
+		return new Object[]{
+				createTestCase(Character.toString(Character.MIN_VALUE), Character.MIN_VALUE),
+				createTestCase(Character.toString(Character.MAX_VALUE), Character.MAX_VALUE)
+		};
+	}
 }

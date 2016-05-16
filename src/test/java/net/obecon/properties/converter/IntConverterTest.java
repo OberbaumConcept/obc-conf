@@ -19,38 +19,33 @@ package net.obecon.properties.converter;
 /**
  * Created by Janne K. Olesen on 10.05.2016.
  */
-public class BooleanConverterTest extends ConverterTestBase<Boolean> {
+public class IntConverterTest extends ConverterTestBase<Integer> {
 
-	public BooleanConverterTest() {
-		super(BooleanConverter.INSTANCE);
+	public IntConverterTest() {
+		super(IntConverter.INSTANCE);
 	}
 
 
 	@Override
 	protected Object[] fromStringParameters() {
 		return new Object[]{
-				createTestCase("trUe", true),
-				createTestCase("YeS", true),
-				createTestCase("oN", true),
-				createTestCase("1", true),
-				createTestCase("falSe", false),
-				createTestCase("nO", false),
-				createTestCase("oFf", false),
-				createTestCase("0", false),
-				createTestCaseFromStringException("noBoolean"),
-				createTestCaseFromStringException(null)
+				createTestCase(Integer.toString(Integer.MIN_VALUE), Integer.MIN_VALUE),
+				createTestCase(Integer.toString(Integer.MAX_VALUE), Integer.MAX_VALUE),
+				createTestCaseFromStringException(null),
+				createTestCaseFromStringException(""),
+				createTestCaseFromStringException(Long.toString(Integer.MIN_VALUE - 1L)),
+				createTestCaseFromStringException(Long.toString(Integer.MAX_VALUE + 1L)),
+				createTestCaseFromStringException("1.0")
 		};
 	}
 
 
 	@Override
 	protected Object[] toStringParameters() {
-
 		return new Object[]{
-				createTestCase("true", true),
-				createTestCase("false", false),
-				createTestCase(null, null)
-
+				createTestCase(Integer.toString(Integer.MIN_VALUE), Integer.MIN_VALUE),
+				createTestCase(Integer.toString(Integer.MAX_VALUE), Integer.MAX_VALUE),
+				createTestCase("0", -0)
 		};
 	}
 }
