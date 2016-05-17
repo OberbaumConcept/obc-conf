@@ -17,6 +17,7 @@
 package net.obecon.properties.converter;
 
 import java.io.File;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
@@ -33,6 +34,9 @@ public class FileConverter extends AbstractConverter<File> {
 
 	@Override
 	protected File doFromString(String value) throws Exception {
+		if (StringUtils.isEmpty(value)) {
+			throw new ParseException("file can't be empty");
+		}
 		return new File(value);
 	}
 }
