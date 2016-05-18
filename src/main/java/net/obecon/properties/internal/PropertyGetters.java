@@ -19,6 +19,7 @@ package net.obecon.properties.internal;
 import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.Base64;
 import java.util.Map;
 import javax.annotation.Nonnull;
 import net.obecon.properties.MissingPropertyException;
@@ -42,10 +43,15 @@ public interface PropertyGetters {
 	boolean hasKey(@Nonnull String key);
 
 	default <T extends Serializable> T get(@Nonnull String key) throws MissingPropertyException {
-		ByteArrayInputStream bis = new ByteArrayInputStream(getAsString(key).getBytes());
-		try (ObjectInputStream ois = new ObjectInputStream(bis)) {
-			//noinspection unchecked,unchecked
-			return (T) ois.readObject();
+		try {
+			final byte[] bytes = Base64.getDecoder().decode(getAsString(key));
+			final ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+			try (final ObjectInputStream ois = new ObjectInputStream(bis)) {
+				//noinspection unchecked,unchecked
+				return (T) ois.readObject();
+			}
+		} catch (MissingPropertyException e) {
+			throw e;
 		} catch (Exception e) {
 			throw PropertyParseException.deserializeError(key, e);
 		}
@@ -56,7 +62,7 @@ public interface PropertyGetters {
 	}
 
 	default <T> T get(@Nonnull String key, @Nonnull Converter<T> converter) throws MissingPropertyException, PropertyParseException {
-		String value = getAsString(key);
+		final String value = getAsString(key);
 		try {
 			return converter.fromString(value);
 		} catch (ParseException e) {

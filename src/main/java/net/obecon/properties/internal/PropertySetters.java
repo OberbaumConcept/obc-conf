@@ -19,6 +19,7 @@ package net.obecon.properties.internal;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Base64;
 import java.util.Map;
 import java.util.Properties;
 import javax.annotation.Nonnull;
@@ -73,7 +74,7 @@ public interface PropertySetters {
 			try (ObjectOutputStream oos = new ObjectOutputStream(bos)) {
 				oos.writeObject(value);
 				oos.flush();
-				set(key, bos.toString("UTF-8"));
+				set(key, Base64.getEncoder().encodeToString(bos.toByteArray()));
 			} catch (Exception e) {
 				throw new RuntimeException("Should never had happened", e);
 			}
