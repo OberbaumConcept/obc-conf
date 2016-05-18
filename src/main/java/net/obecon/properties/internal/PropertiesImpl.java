@@ -49,4 +49,12 @@ public class PropertiesImpl extends AbstractProperties implements Properties {
 	public void set(@Nonnull String key, String value) {
 		map.put(Objects.requireNonNull(key, "null is not permitted as key"), value);
 	}
+
+
+	@Override
+	public void delete(String key) {
+		if (key != null) {
+			map.remove(key);
+		}
+	}
 }
