@@ -24,6 +24,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
+import net.obecon.properties.MissingPropertyException;
 import static org.junit.Assert.*;
 
 /**
@@ -51,7 +52,6 @@ public class AbstractPropertiesTest {
 		map.put("c", "a${b}c");
 		map.put("d", "${c}d${c}d");
 		properties = new MyProperties(map);
-
 	}
 
 
@@ -78,6 +78,24 @@ public class AbstractPropertiesTest {
 
 
 	@Test
+	public void getAsString() throws Exception {
+		assertEquals("b", properties.getAsString("b"));
+	}
+
+
+	@Test(expected = MissingPropertyException.class)
+	public void getAsString_valueIsNull() throws Exception {
+		properties.getAsString("a");
+	}
+
+
+	@Test(expected = MissingPropertyException.class)
+	public void getAsString_keyNotSet() throws Exception {
+		properties.getAsString("not there");
+	}
+
+
+	@Test
 	public void asMap_isCopy() throws Exception {
 		Map<String, String> map = properties.asMap();
 		map.put("new", "new");
@@ -88,7 +106,10 @@ public class AbstractPropertiesTest {
 	@Test
 	public void testEquals() throws Exception {
 		MyProperties properties2 = new MyProperties(properties.asMap());
-		assertTrue(properties.equals(properties2));
+		assertTrue("same", properties.equals(properties));
+		assertTrue("copy", properties.equals(properties2));
+		assertFalse("other", properties.equals(new MyProperties(new HashMap<>())));
+		assertFalse("other object", properties.equals("no"));
 	}
 
 

@@ -65,11 +65,8 @@ public abstract class AbstractProperties implements PropertyGetters {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-
 		AbstractProperties that = (AbstractProperties) o;
-
 		return map.equals(that.map);
-
 	}
 
 
