@@ -16,12 +16,7 @@
 
 package net.obecon.properties.internal;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.lang.reflect.Method;
-import java.util.Base64;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -32,6 +27,7 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import net.obecon.properties.MissingPropertyException;
 import net.obecon.properties.PropertyParseException;
+import net.obecon.properties.TestUtils.SerializableObject;
 import net.obecon.properties.converter.BooleanConverter;
 import net.obecon.properties.converter.CharConverter;
 import net.obecon.properties.converter.Converter;
@@ -41,6 +37,7 @@ import net.obecon.properties.converter.IntConverter;
 import net.obecon.properties.converter.LongConverter;
 import net.obecon.properties.converter.ParseException;
 import net.obecon.properties.converter.ShortConverter;
+import static net.obecon.properties.TestUtils.serializeToBase64;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -76,7 +73,7 @@ public class PropertyGettersTest {
 	public void get() throws Exception {
 		final SerializableObject expected = new SerializableObject("expected");
 		when(propertyGetters.hasKey(KEY)).thenReturn(true);
-		when(propertyGetters.getAsString(KEY)).thenReturn(serialize(expected));
+		when(propertyGetters.getAsString(KEY)).thenReturn(serializeToBase64(expected));
 		assertEquals(expected, propertyGetters.get(KEY));
 	}
 
@@ -95,7 +92,7 @@ public class PropertyGettersTest {
 	public void get_PropertyParseException() throws Exception {
 		final SerializableObject expected = new SerializableObject("expected");
 		when(propertyGetters.hasKey(KEY)).thenReturn(true);
-		when(propertyGetters.getAsString(KEY)).thenReturn("broken" + serialize(expected));
+		when(propertyGetters.getAsString(KEY)).thenReturn("broken" + serializeToBase64(expected));
 		thrown.expect(PropertyParseException.class);
 		thrown.expectMessage("failed to deserialize property '" + KEY + "'");
 		propertyGetters.get(KEY);
@@ -107,7 +104,7 @@ public class PropertyGettersTest {
 		final SerializableObject expected = new SerializableObject("expected");
 		final SerializableObject defaultValue = new SerializableObject("default");
 		when(propertyGetters.hasKey(KEY)).thenReturn(true);
-		when(propertyGetters.getAsString(KEY)).thenReturn(serialize(expected));
+		when(propertyGetters.getAsString(KEY)).thenReturn(serializeToBase64(expected));
 		assertEquals(expected, propertyGetters.get(KEY, defaultValue));
 	}
 
@@ -229,16 +226,6 @@ public class PropertyGettersTest {
 	}
 
 
-	private String serialize(SerializableObject object) throws IOException {
-		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		try (final ObjectOutputStream oos = new ObjectOutputStream(bos)) {
-			oos.writeObject(object);
-			oos.flush();
-			return Base64.getEncoder().encodeToString(bos.toByteArray());
-		}
-	}
-
-
 	static class GetAsTestCase<T> {
 
 		final String methodName;
@@ -262,35 +249,6 @@ public class PropertyGettersTest {
 		@Override
 		public String toString() {
 			return methodName;
-		}
-	}
-
-	static class SerializableObject implements Serializable {
-
-		private final String value;
-
-
-		public SerializableObject(String value) {
-			this.value = value;
-		}
-
-
-		@Override
-		public boolean equals(Object o) {
-			if (this == o) {
-				return true;
-			}
-			if (o == null || getClass() != o.getClass()) {
-				return false;
-			}
-			SerializableObject serializableObject = (SerializableObject) o;
-			return value.equals(serializableObject.value);
-		}
-
-
-		@Override
-		public int hashCode() {
-			return value.hashCode();
 		}
 	}
 }
