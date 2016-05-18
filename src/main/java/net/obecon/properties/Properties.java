@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Nonnull;
 import net.obecon.properties.internal.PropertiesImpl;
@@ -66,6 +67,16 @@ public interface Properties extends Serializable, PropertyGetters, PropertySette
 	@Nonnull
 	static Properties of(@Nonnull java.util.Properties properties) {
 		return new PropertiesImpl(Utils.asMap(properties));
+	}
+
+	/**
+	 * Creates an empty Properties instance.
+	 *
+	 * @return Properties
+	 */
+	@Nonnull
+	static Properties empty() {
+		return new PropertiesImpl(new HashMap<>());
 	}
 
 
