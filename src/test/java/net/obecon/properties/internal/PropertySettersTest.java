@@ -92,7 +92,7 @@ public class PropertySettersTest {
 
 	@Test
 	public void addAll_Properties() throws Exception {
-		Properties properties = Properties.empty();
+		Properties properties = Properties.create();
 		properties.set("key1", "val1");
 		properties.set("key2", "val2");
 		propertySetters.addAll(properties);

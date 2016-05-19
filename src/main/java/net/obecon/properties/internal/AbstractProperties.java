@@ -17,7 +17,9 @@
 package net.obecon.properties.internal;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import javax.annotation.Nonnull;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import net.obecon.properties.MissingPropertyException;
@@ -38,7 +40,13 @@ public abstract class AbstractProperties implements PropertyGetters {
 
 	@Override
 	public boolean hasKey(@Nonnull String key) {
-		return map.get(key) != null;
+		return map.containsKey(key) && map.get(key) != null;
+	}
+
+
+	@Override
+	public Set<String> getKeys() {
+		return new HashSet<>(map.keySet());
 	}
 
 

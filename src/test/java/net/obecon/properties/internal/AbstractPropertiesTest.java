@@ -18,6 +18,7 @@ package net.obecon.properties.internal;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import javax.annotation.Nonnull;
 import org.junit.Before;
 import org.junit.Test;
@@ -63,6 +64,16 @@ public class AbstractPropertiesTest {
 	@Test
 	public void hasKey(String key, boolean expected) throws Exception {
 		assertEquals(expected, properties.hasKey(key));
+	}
+
+
+	@Test
+	public void getKeys() {
+		Set<String> keys = properties.getKeys();
+		assertEquals("keys", properties.asMap().keySet(), keys);
+		// detached
+		keys.remove("a");
+		assertTrue("detached", properties.hasKey("b"));
 	}
 
 

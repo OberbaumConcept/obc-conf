@@ -17,12 +17,14 @@
 package net.obecon.properties.internal;
 
 import java.lang.reflect.Method;
+import java.util.Set;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import com.google.common.collect.Sets;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import net.obecon.properties.MissingPropertyException;
@@ -65,7 +67,24 @@ public class PropertyGettersTest {
 
 	@After
 	public void tearDown() throws Exception {
+	}
 
+
+	@Test
+	public void getKeys_String() throws Exception {
+		Set<String> keys = Sets.newHashSet("start.a", "start.b", "c", "starting");
+		when(propertyGetters.getKeys()).thenReturn(keys);
+		Set<String> expected = Sets.newHashSet("start.a", "start.b");
+		assertEquals(expected, propertyGetters.getKeys("start."));
+	}
+
+
+	@Test
+	public void getKeys_Predicate() throws Exception {
+		Set<String> keys = Sets.newHashSet("start.a", "start.b", "c", "starting");
+		when(propertyGetters.getKeys()).thenReturn(keys);
+		Set<String> expected = Sets.newHashSet("start.a", "start.b", "starting");
+		assertEquals(expected, propertyGetters.getKeys(s -> s.contains("a")));
 	}
 
 

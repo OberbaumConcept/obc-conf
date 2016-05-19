@@ -18,6 +18,7 @@ package net.obecon.properties.internal;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -26,9 +27,18 @@ import static org.junit.Assert.*;
  */
 public class UtilsTest {
 
+
 	@Test
 	public void asMap() throws Exception {
-
+		final java.util.Properties properties = new Properties();
+		properties.put("key", "value");
+		properties.put("key1", false);
+		properties.put(10, 20);
+		final Map<String, String> map = Utils.asMap(properties);
+		assertNotNull(map);
+		assertEquals("size", 1, map.size());
+		assertTrue("contains key", map.containsKey("key"));
+		assertEquals("value", "value", map.get("key"));
 	}
 
 
@@ -40,8 +50,8 @@ public class UtilsTest {
 
 	@Test
 	public void addAll() throws Exception {
-		Map<String, String> target = new HashMap<>();
-		Map<String, String> source = new HashMap<>();
+		final Map<String, String> target = new HashMap<>();
+		final Map<String, String> source = new HashMap<>();
 		source.put("a", "a");
 		source.put("b", null);
 		source.put(null, "c"); // should be missing in target

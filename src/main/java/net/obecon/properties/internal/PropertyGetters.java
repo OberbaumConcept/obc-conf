@@ -21,6 +21,9 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Base64;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import net.obecon.properties.MissingPropertyException;
 import net.obecon.properties.PropertyParseException;
@@ -41,6 +44,36 @@ public interface PropertyGetters {
 
 
 	boolean hasKey(@Nonnull String key);
+
+	/**
+	 * Returns all keys. The Set is detached, therefore modifications to the set are not reflected to
+	 * properties and vice versa.
+	 *
+	 * @return
+	 */
+	Set<String> getKeys();
+
+	/**
+	 * Returns all keys starting with <code>prefix</code>
+	 *
+	 * @param prefix prefix to filter with
+	 * @return detached Set of keys
+	 * @see #getKeys()
+	 */
+	default Set<String> getKeys(@Nonnull String prefix) {
+		return getKeys(s -> s.startsWith(prefix));
+	}
+
+	/**
+	 * Returns all keys satisfying <code>predicate</code>
+	 *
+	 * @param predicate predicate to use as filter
+	 * @return detached Set of keys
+	 * @see #getKeys()
+	 */
+	default Set<String> getKeys(@Nonnull Predicate<String> predicate) {
+		return getKeys().stream().filter(predicate).collect(Collectors.toSet());
+	}
 
 	default <T extends Serializable> T get(@Nonnull String key) throws MissingPropertyException {
 		try {

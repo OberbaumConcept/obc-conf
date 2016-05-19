@@ -70,12 +70,12 @@ public interface Properties extends Serializable, PropertyGetters, PropertySette
 	}
 
 	/**
-	 * Creates an empty Properties instance.
+	 * Creates an create Properties instance.
 	 *
 	 * @return Properties
 	 */
 	@Nonnull
-	static Properties empty() {
+	static Properties create() {
 		return new PropertiesImpl(new HashMap<>());
 	}
 
