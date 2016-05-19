@@ -19,21 +19,27 @@ package net.obecon.properties;
 import java.io.Serializable;
 import java.util.Map;
 import javax.annotation.Nonnull;
-import net.obecon.properties.internal.PropertyGetters;
+import net.obecon.properties.internal.AbstractProperties;
+import net.obecon.properties.internal.Utils;
 
 /**
  * @author Janne K. Olesen &lt;janne.olesen@oberbaum-concept.com&gt;
  */
-public interface ImmutableProperties extends PropertyGetters, Serializable {
+public final class ImmutableProperties extends AbstractProperties implements Serializable {
 
-
-	@Nonnull
-	static ImmutableProperties of(@Nonnull Map<String, String> map) {
-		return Properties.of(map).immutable();
+	private ImmutableProperties(@Nonnull Map<String, String> map) {
+		super(map);
 	}
 
+
 	@Nonnull
-	static ImmutableProperties of(@Nonnull java.util.Properties properties) {
-		return Properties.of(properties).immutable();
+	public static ImmutableProperties of(@Nonnull Map<String, String> map) {
+		return new ImmutableProperties(map);
+	}
+
+
+	@Nonnull
+	public static ImmutableProperties of(@Nonnull java.util.Properties properties) {
+		return new ImmutableProperties(Utils.asMap(properties));
 	}
 }
