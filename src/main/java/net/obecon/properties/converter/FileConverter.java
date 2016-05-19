@@ -35,7 +35,7 @@ public class FileConverter extends AbstractConverter<File> {
 	@Override
 	protected File doFromString(String value) throws Exception {
 		if (StringUtils.isEmpty(value)) {
-			throw new ParseException("file can't be empty");
+			throw new ParseException("file can't be create");
 		}
 		return new File(value);
 	}
