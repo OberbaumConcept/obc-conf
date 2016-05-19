@@ -31,6 +31,13 @@ public class Utils {
 	}
 
 
+	/**
+	 * Returns all keys from {@linkplain Properties#stringPropertyNames()}
+	 * with their values as map
+	 *
+	 * @param properties properties to convert
+	 * @return result map
+	 */
 	@Nonnull
 	public static Map<String, String> asMap(@Nonnull Properties properties) {
 		Map<String, String> map = new HashMap<>();
